@@ -1,1 +1,783 @@
-你好
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEARS — 航天探索公司</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 L36 24 L32 60 L28 24 Z' fill='%23e9eef6'/%3E%3Ccircle cx='32' cy='32' r='10' fill='%237fb2ff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Orbitron:wght@500;700;900&amp;family=Noto+Sans+SC:wght@300;400;500;700&amp;display=swap">
+<style>
+/* ===== 基础 ===== */
+:root{
+  --bg:#04060b; --bg2:#0a0f1a; --panel:#0d1424;
+  --text:#e9eef6; --muted:#8b96a8; --line:rgba(148,163,184,.14);
+  --accent:#7fb2ff; --flame:#ff8a4c;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:"Noto Sans SC",system-ui,-apple-system,sans-serif;
+  font-weight:300; line-height:1.7; overflow-x:hidden;
+}
+::selection{background:rgba(127,178,255,.3)}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.sec{padding:96px 0;position:relative}
+.sec-head{margin-bottom:48px}
+.sec-head .en{
+  font-family:"Orbitron",sans-serif; font-size:13px; letter-spacing:.35em;
+  color:var(--accent); text-transform:uppercase; margin-bottom:10px;
+}
+.sec-head h2{font-size:clamp(26px,4vw,40px); font-weight:700; letter-spacing:.02em}
+.sec-head p{color:var(--muted); margin-top:12px; max-width:640px}
+.divider{height:1px;background:var(--line);border:0}
+/* ===== 导航 ===== */
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:18px 0; transition:background .3s, backdrop-filter .3s, padding .3s;
+}
+nav.scrolled{background:rgba(4,6,11,.82); backdrop-filter:blur(12px); padding:12px 0; border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Orbitron",sans-serif;font-weight:900;font-size:22px;letter-spacing:.18em}
+.logo .mark{width:30px;height:30px;border:1.5px solid var(--text);display:grid;place-items:center;border-radius:50%}
+.logo .mark svg{width:16px;height:16px}
+.nav-links{display:flex;gap:28px;font-size:14px;color:var(--muted)}
+.nav-links a{transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  font-size:13px; letter-spacing:.08em; padding:9px 20px;
+  border:1px solid rgba(233,238,246,.5); border-radius:2px; transition:all .2s;
+}
+.nav-cta:hover{background:var(--text);color:var(--bg)}
+/* ===== Hero ===== */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+#stars{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.hero-bg{position:absolute;inset:0;z-index:1;background:
+  linear-gradient(180deg,rgba(4,6,11,.35) 0%,rgba(4,6,11,.55) 55%,var(--bg) 100%),
+  url('https://media.doubao.com/space/api/box/stream/download/all_by_mount_point/S9MSbUBNYocwtVxev09cbehKnRe') center 40%/cover no-repeat;}
+.hero-inner{position:relative;z-index:2;width:100%}
+.hero .eyebrow{font-family:"Orbitron",sans-serif;font-size:13px;letter-spacing:.45em;color:var(--accent);text-transform:uppercase;margin-bottom:18px}
+.hero h1{font-family:"Orbitron",sans-serif;font-size:clamp(46px,9vw,110px);font-weight:900;letter-spacing:.06em;line-height:1.05}
+.hero .sub{max-width:560px;color:#c3ccdb;font-size:17px;margin:22px 0 34px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.btn{
+  display:inline-block;padding:15px 34px;font-size:14px;letter-spacing:.12em;
+  border-radius:2px;transition:all .25s;cursor:pointer;border:1px solid transparent;
+}
+.btn-solid{background:var(--text);color:var(--bg);font-weight:500}
+.btn-solid:hover{background:var(--flame);color:#fff}
+.btn-ghost{border-color:rgba(233,238,246,.45);color:var(--text)}
+.btn-ghost:hover{border-color:var(--text);background:rgba(233,238,246,.08)}
+.hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;color:var(--muted);font-size:12px;letter-spacing:.3em;text-align:center}
+.hero-scroll::after{content:"";display:block;width:1px;height:42px;background:linear-gradient(var(--muted),transparent);margin:10px auto 0}
+/* ===== 统计条 ===== */
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:56px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+.stat{text-align:left}
+.stat .num{font-family:"Orbitron",sans-serif;font-size:clamp(34px,5vw,56px);font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+.stat .num span{color:var(--flame)}
+.stat .lbl{color:var(--muted);font-size:13px;letter-spacing:.18em;margin-top:6px;text-transform:uppercase}
+/* ===== 任务卡片 ===== */
+.missions-grid{display:grid;grid-template-columns:1fr;gap:20px}
+.m-card{position:relative;border-radius:4px;overflow:hidden;border:1px solid var(--line);background:var(--panel);min-height:360px;display:flex;align-items:flex-end}
+.m-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75;transition:transform .6s ease,opacity .4s}
+.m-card:hover img{transform:scale(1.04);opacity:.9}
+.m-card .shade{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(4,6,11,.88) 88%)}
+.m-card .info{position:relative;z-index:2;padding:26px;width:100%}
+.m-card .tag{font-family:"Orbitron",sans-serif;font-size:11px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase}
+.m-card h3{font-size:24px;font-weight:700;margin:8px 0 8px}
+.m-card p{color:#b9c2d2;font-size:14px;max-width:480px}
+.m-card{cursor:pointer;transition:border-color .3s,transform .3s}
+.m-card:hover{border-color:rgba(127,178,255,.4)}
+.m-card .m-more{
+  margin-top:14px;background:transparent;border:none;color:var(--accent);
+  font-size:12.5px;letter-spacing:.08em;cursor:pointer;padding:0;font-family:inherit;position:relative;
+}
+.m-card .m-more::after{content:"";position:absolute;left:0;bottom:-3px;width:100%;height:1px;background:rgba(127,178,255,.5)}
+.k-card{cursor:pointer;transition:border-color .25s,transform .25s,background .25s}
+.k-card:hover{background:rgba(20,30,52,.75)}
+/* ===== 火箭（手风琴卡片） ===== */
+.rocket-grid{display:grid;grid-template-columns:1fr;gap:20px}
+.rocket-card{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--panel);display:flex;flex-direction:column;transition:border-color .35s,transform .35s}
+.rocket-card:hover{border-color:rgba(127,178,255,.42);transform:translateY(-4px)}
+.rocket-media{position:relative;height:250px;overflow:hidden;flex:none;cursor:pointer}
+.rocket-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.rocket-card:hover .rocket-media img{transform:scale(1.06)}
+.rocket-media .shade2{position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(4,6,11,.86))}
+.rocket-media .r-name{position:absolute;left:20px;bottom:16px;z-index:2;font-family:"Orbitron",sans-serif;font-size:24px;font-weight:700;letter-spacing:.05em;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+.rocket-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.rocket-body .r-status{display:inline-block;width:fit-content;font-size:11px;letter-spacing:.2em;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,138,76,.5);color:var(--flame);margin-bottom:14px}
+.rocket-body .r-desc{color:#b9c2d2;font-size:14px;margin-bottom:18px}
+.rocket-toggle{
+  align-self:flex-start;background:transparent;border:1px solid rgba(233,238,246,.35);color:var(--text);
+  font-size:13px;letter-spacing:.12em;padding:10px 22px;border-radius:2px;cursor:pointer;
+  transition:all .25s;font-family:inherit;
+}
+.rocket-toggle:hover{border-color:var(--text);background:rgba(233,238,246,.08)}
+.spec-expand{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.22,1,.36,1)}
+.spec-expand.open{grid-template-rows:1fr;margin-top:20px}
+.spec-expand>div{overflow:hidden}
+.spec-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:13px}
+.spec-table th,.spec-table td{padding:10px 8px;text-align:left;border-top:1px solid var(--line);vertical-align:top}
+.spec-table th{color:var(--muted);font-weight:400;width:34%}
+.spec-table td{color:var(--text)}
+/* ===== 点击展开介绍 ===== */
+.expand{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.22,1,.36,1)}
+.expand.open{grid-template-rows:1fr}
+.expand>div{overflow:hidden}
+.expand .detail{padding-top:14px;border-top:1px solid var(--line);margin-top:14px;color:#b9c2d2;font-size:13.5px}
+.expand .detail .dl{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed rgba(148,163,184,.14)}
+.expand .detail .dl span{color:var(--muted)}
+.expand .detail .dl b{color:var(--text);font-weight:500;text-align:right}
+/* ===== 果冻动画 ===== */
+@keyframes jelly{
+  0%{transform:scale(1,1)}25%{transform:scale(.9,1.12)}50%{transform:scale(1.12,.9)}75%{transform:scale(.96,1.04)}100%{transform:scale(1,1)}
+}
+.jelly{animation:jelly .5s cubic-bezier(.22,1,.36,1)}
+.btn:active{transform:scale(.96)}
+/* ===== Hero 入场与轨道环（桌面端） ===== */
+@keyframes heroIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.hero-orbit{display:none;position:absolute;right:6%;top:16%;width:230px;height:230px;z-index:2;pointer-events:none}
+.hero-orbit .ring{position:absolute;inset:0;border:1px solid rgba(233,238,246,.16);border-radius:50%}
+.hero-orbit .ring.r2{inset:26px;border-color:rgba(233,238,246,.1)}
+.hero-orbit .ring.r3{inset:52px;border-color:rgba(255,138,76,.25);border-style:dashed}
+.hero-orbit .sat{position:absolute;top:-4px;left:50%;width:9px;height:9px;border-radius:50%;background:var(--flame);box-shadow:0 0 14px rgba(255,138,76,.9)}
+.hero-orbit .sat2{position:absolute;bottom:8px;left:14%;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(127,178,255,.9)}
+.hero-orbit .spin{position:absolute;inset:0;animation:orbitSpin 22s linear infinite}
+.hero-orbit .spin.rev{animation-direction:reverse;animation-duration:34s}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+/* ===== 导航下划线（桌面端） ===== */
+.nav-links a{position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:1px;background:var(--text);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover::after{transform:scaleX(1)}
+/* ===== 时间轴圆点 hover ===== */
+.tl-dot{transition:transform .3s,box-shadow .3s}
+.tl-item:hover .tl-dot{transform:scale(1.55);box-shadow:0 0 0 6px rgba(255,138,76,.16)}
+/* ===== 揭示交错 ===== */
+.missions-grid .m-card:nth-child(2){transition-delay:.08s}
+.missions-grid .m-card:nth-child(3){transition-delay:.16s}
+.rocket-card:nth-child(2){transition-delay:.08s}
+.rocket-card:nth-child(3){transition-delay:.16s}
+.k-card:nth-child(2){transition-delay:.08s}
+.k-card:nth-child(3){transition-delay:.16s}
+/* ===== 知识 ===== */
+.know-grid{display:grid;grid-template-columns:1fr;gap:16px}
+.k-card{border:1px solid var(--line);border-radius:4px;padding:28px;background:rgba(13,20,36,.55);transition:border-color .25s,transform .25s}
+.k-card:hover{border-color:rgba(127,178,255,.45);transform:translateY(-3px)}
+.k-card .icon{width:42px;height:42px;border:1px solid rgba(127,178,255,.4);border-radius:50%;display:grid;place-items:center;margin-bottom:18px;color:var(--accent)}
+.k-card h3{font-size:19px;font-weight:700;margin-bottom:10px}
+.k-card p{color:var(--muted);font-size:14px}
+.k-card .num-zh{font-family:"Orbitron",sans-serif;font-size:12px;letter-spacing:.25em;color:var(--flame);margin-bottom:10px;display:block}
+/* ===== 发射场 ===== */
+.site-wrap{position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--line);min-height:480px;display:flex;align-items:flex-end}
+.site-wrap>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.site-wrap .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,6,11,.2) 0%,rgba(4,6,11,.6) 60%,rgba(4,6,11,.94) 100%)}
+.site-info{position:relative;z-index:2;padding:34px;width:100%}
+.site-info h3{font-size:26px;font-weight:700;margin-bottom:10px}
+.site-info p{color:#b9c2d2;font-size:14px;max-width:640px}
+.site-info .site-meta{display:flex;gap:28px;margin-top:20px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.site-info .site-meta b{color:var(--text);font-weight:500}
+/* ===== 时间轴 ===== */
+.tl{--col-time:72px;--col-axis:28px;--gap:20px;position:relative;max-width:760px}
+.tl::before{content:"";position:absolute;left:calc(var(--col-time) + var(--gap) + var(--col-axis)/2);top:0;bottom:0;width:1px;background:var(--line);transform:translateX(-50%)}
+.tl-item{display:grid;grid-template-columns:var(--col-time) var(--col-axis) 1fr;gap:0 var(--gap)}
+.tl-time{font-family:"Orbitron",sans-serif;font-size:15px;font-weight:700;color:var(--accent);text-align:right;padding:22px 0}
+.tl-dot{justify-self:center;align-self:start;margin-top:30px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--flame);box-sizing:border-box}
+.tl-body{padding:22px 0;border-bottom:1px solid var(--line)}
+.tl-body h4{font-size:17px;font-weight:700;margin-bottom:6px}
+.tl-body p{color:var(--muted);font-size:13.5px}
+/* ===== 倒计时 ===== */
+.count-wrap{border:1px solid var(--line);border-radius:6px;padding:44px 28px;text-align:center;background:
+  radial-gradient(ellipse at 50% 120%,rgba(127,178,255,.12),transparent 60%),var(--panel)}
+.count-wrap .lbl{font-family:"Orbitron",sans-serif;font-size:12px;letter-spacing:.35em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+.cd{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.cd .unit{min-width:88px}
+.cd .num{font-family:"Orbitron",sans-serif;font-size:clamp(32px,6vw,52px);font-weight:700;font-variant-numeric:tabular-nums}
+.cd .u{font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+.count-wrap .note{color:var(--muted);font-size:13px;margin-top:16px}
+/* ===== CTA ===== */
+.cta-block{text-align:center;padding:110px 0}
+.cta-block h2{font-size:clamp(28px,5vw,44px);font-weight:700;letter-spacing:.03em}
+.cta-block p{color:var(--muted);max-width:520px;margin:16px auto 36px}
+/* ===== footer ===== */
+footer{border-top:1px solid var(--line);padding:44px 0 60px;font-size:13px;color:var(--muted)}
+.foot-grid{display:grid;grid-template-columns:1fr;gap:30px}
+.foot-brand .logo{margin-bottom:14px}
+.foot-brand p{max-width:300px;font-size:13px}
+.foot-col h5{font-family:"Orbitron",sans-serif;font-size:12px;letter-spacing:.25em;color:var(--text);margin-bottom:14px;text-transform:uppercase}
+.foot-col a{display:block;padding:5px 0;transition:color .2s}
+.foot-col a:hover{color:var(--text)}
+.foot-bottom{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+/* ===== 滚动揭示 ===== */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.on{opacity:1;transform:none}
+@media (min-width:560px){
+  .missions-grid{grid-template-columns:repeat(2,1fr)}
+  .missions-grid .m-card:first-child{grid-column:1/-1}
+  .know-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:768px){
+  .stats-grid{grid-template-columns:repeat(4,1fr)}
+  .missions-grid{grid-template-columns:repeat(3,1fr)}
+  .missions-grid .m-card:first-child{grid-column:auto}
+  .m-card{min-height:420px}
+  .know-grid{grid-template-columns:repeat(3,1fr)}
+  .foot-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}
+}
+@media (min-width:1024px){
+  .rocket-grid{grid-template-columns:repeat(3,1fr);align-items:start}
+  .hero-orbit{display:block}
+  .hero .eyebrow{opacity:0;animation:heroIn .8s .05s cubic-bezier(.22,1,.36,1) forwards}
+  .hero h1{opacity:0;animation:heroIn 1s .18s cubic-bezier(.22,1,.36,1) forwards}
+  .hero .sub{opacity:0;animation:heroIn 1s .34s cubic-bezier(.22,1,.36,1) forwards}
+  .hero-ctas{opacity:0;animation:heroIn 1s .5s cubic-bezier(.22,1,.36,1) forwards}
+}
+@media (max-width:720px){
+  .nav-links{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .hero-scroll::after{display:none}
+  .hero .eyebrow,.hero h1,.hero .sub,.hero-ctas{opacity:1;animation:none;transform:none}
+  .hero-orbit,.hero-orbit .spin{animation:none}
+  .jelly{animation:none}
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<!-- ===== 导航 ===== -->
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top" aria-label="TEARS 首页">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 L14 10 L12 22 L10 10 Z"/><circle cx="12" cy="10" r="2.4" fill="currentColor" stroke="none"/></svg></span>
+      TEARS
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#missions">任务</a>
+      <a href="#rockets">火箭</a>
+      <a href="#knowledge">技术</a>
+      <a href="#launch">发射场</a>
+      <a href="#history">历程</a>
+    </div>
+    <a class="nav-cta" href="#join">加入我们</a>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero" id="top">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Private Space Exploration</div>
+    <h1>TEARS</h1>
+    <p class="sub">我们是 TEARS —— 一家虚构的航天探索公司。把地球托付给轨道，把人类的足迹带向深空。可重复使用火箭、轨道站、月面基地，一切刚刚开始。</p>
+    <div class="hero-ctas">
+      <a class="btn btn-solid" href="#missions">探索我们的任务</a>
+      <a class="btn btn-ghost" href="../太阳系探测器4.html">探索太阳系 3D</a>
+      <!-- <a class="btn btn-solid" href="#rockets">认识火箭家族</a> -->
+      <!-- <a class="btn btn-ghost" href="../太阳系探测器3.html" target="_blank">探索太阳系 3D</a> -->
+    </div>
+  </div>
+  <div class="hero-orbit" aria-hidden="true">
+    <div class="ring"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+    <div class="spin"><span class="sat"></span></div>
+    <div class="spin rev"><span class="sat2"></span></div>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</header>
+
+<!-- ===== 统计 ===== -->
+<section class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><div class="num" data-count="128">0<span>+</span></div><div class="lbl">轨道发射</div></div>
+    <div class="stat"><div class="num" data-count="34">0<span>+</span></div><div class="lbl">载人飞行</div></div>
+    <div class="stat"><div class="num" data-count="99">0<span>%</span></div><div class="lbl">任务成功率</div></div>
+    <div class="stat"><div class="num" data-count="1024">0<span>+</span></div><div class="lbl">部署卫星</div></div>
+  </div>
+</section>
+
+<!-- ===== 任务 ===== -->
+<section class="sec" id="missions">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="en">Missions</div>
+      <h2>三大任务线</h2>
+      <p>从近地轨道到月面，再到更远的深空。TEARS 用三条任务线，逐步把人类文明推向星辰。</p>
+    </div>
+    <div class="missions-grid">
+      <article class="m-card reveal" tabindex="0" role="button" aria-expanded="false">
+        <img src="./assets/images/nebula-blue.jpg" alt="近地轨道空间站" loading="lazy">
+        <div class="shade"></div>
+        <div class="info">
+          <div class="tag">LEO · 近地轨道</div>
+          <h3>轨道站计划</h3>
+          <p>模块化商业轨道站，2028 年首舱入轨。支持科学实验、微重力制造与太空旅游，是 TEARS 在近地的立足点。</p>
+          <button class="m-more" type="button" aria-expanded="false">点击展开任务详情</button>
+          <div class="expand"><div class="detail">
+            <div class="dl"><span>首舱入轨</span><b>2028 年</b></div>
+            <div class="dl"><span>在轨舱段</span><b>6 模块</b></div>
+            <div class="dl"><span>常驻人数</span><b>4 人</b></div>
+            <div class="dl"><span>太空游客</span><b>每季度 2 席</b></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="m-card reveal" tabindex="0" role="button" aria-expanded="false">
+        <img src="./assets/images/apollo-moon.jpg" alt="月面基地" loading="lazy">
+        <div class="shade"></div>
+        <div class="info">
+          <div class="tag">LUNAR · 月球</div>
+          <h3>月面基地</h3>
+          <p>在南极-艾特肯盆地边缘建立常驻月面基地，利用原位资源制水制氧，为深空任务补给前哨。</p>
+          <button class="m-more" type="button" aria-expanded="false">点击展开任务详情</button>
+          <div class="expand"><div class="detail">
+            <div class="dl"><span>选址</span><b>南极-艾特肯盆地</b></div>
+            <div class="dl"><span>资源利用</span><b>水冰制氧 / 月壤制砖</b></div>
+            <div class="dl"><span>常驻规模</span><b>8 人</b></div>
+            <div class="dl"><span>建成节点</span><b>2030 年</b></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="m-card reveal" tabindex="0" role="button" aria-expanded="false">
+        <img src="./assets/images/nebula-orange.jpg" alt="深空探测" loading="lazy">
+        <div class="shade"></div>
+        <div class="info">
+          <div class="tag">DEEP SPACE · 深空</div>
+          <h3>火星前哨</h3>
+          <p>2031 年无人货船先遣登陆火星，2035 年载人着陆。用一次一次脚印，把红色星球变成第二个家。</p>
+          <button class="m-more" type="button" aria-expanded="false">点击展开任务详情</button>
+          <div class="expand"><div class="detail">
+            <div class="dl"><span>先遣货船</span><b>2031 年</b></div>
+            <div class="dl"><span>载人着陆</span><b>2035 年</b></div>
+            <div class="dl"><span>着陆区</span><b>乌托邦平原</b></div>
+            <div class="dl"><span>单程耗时</span><b>约 9 个月</b></div>
+          </div></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 火箭 ===== -->
+<section class="sec" id="rockets" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="en">Rockets</div>
+      <h2>火箭家族</h2>
+      <p>全系可回收复用，一级助推器可重复使用 20 次以上，把进入太空的成本降低一个数量级。</p>
+    </div>
+
+    <div class="rocket-grid">
+      <article class="rocket-card reveal">
+        <div class="rocket-media">
+          <img src="./assets/images/falcon-launch.jpg" alt="TEARS-9 火箭升空" loading="lazy">
+          <div class="shade2"></div>
+          <div class="r-name">TEARS-9</div>
+        </div>
+        <div class="rocket-body">
+          <span class="r-status">运营中</span>
+          <p class="r-desc">主力中型运载火箭，两级可回收构型。承担卫星部署、货运与载人任务，已连续成功 96 次。</p>
+          <button class="rocket-toggle" type="button" aria-expanded="false">查看参数</button>
+          <div class="spec-expand"><div>
+            <table class="spec-table">
+              <tr><th>高度</th><td>65 m</td></tr>
+              <tr><th>近地轨道运力</th><td>18.5 t（可回收）/ 22.8 t（一次性）</td></tr>
+              <tr><th>芯级</th><td>9 × TE-1 液氧甲烷发动机</td></tr>
+              <tr><th>复用次数</th><td>单枚芯级最高 24 次</td></tr>
+            </table>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="rocket-card reveal">
+        <div class="rocket-media">
+          <img src="./assets/images/sls-pad.jpg" alt="TEARS Heavy 重载火箭" loading="lazy">
+          <div class="shade2"></div>
+          <div class="r-name">TEARS HEAVY</div>
+        </div>
+        <div class="rocket-body">
+          <span class="r-status">运营中</span>
+          <p class="r-desc">重载构型，三芯并联。用于大型载荷、深空探测器的直接发射，曾单次将 60 t 送入近地轨道。</p>
+          <button class="rocket-toggle" type="button" aria-expanded="false">查看参数</button>
+          <div class="spec-expand"><div>
+            <table class="spec-table">
+              <tr><th>高度</th><td>70 m</td></tr>
+              <tr><th>近地轨道运力</th><td>60 t / 火星转移运力 16 t</td></tr>
+              <tr><th>芯级</th><td>27 × TE-1 发动机（三芯）</td></tr>
+              <tr><th>首飞</th><td>2023 年 6 月</td></tr>
+            </table>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="rocket-card reveal">
+        <div class="rocket-media">
+          <img src="./assets/images/hero-launch.jpg" alt="TEARS-X 星舰" loading="lazy">
+          <div class="shade2"></div>
+          <div class="r-name">TEARS-X</div>
+        </div>
+        <div class="rocket-body">
+          <span class="r-status">试验中</span>
+          <p class="r-desc">完全可重复使用的两级星舰，一级与上面级均垂直着陆回收。目标：单次发射成本降到 500 万美元以内。</p>
+          <button class="rocket-toggle" type="button" aria-expanded="false">查看参数</button>
+          <div class="spec-expand"><div>
+            <table class="spec-table">
+              <tr><th>高度</th><td>118 m</td></tr>
+              <tr><th>近地轨道运力</th><td>150 t（可回收）</td></tr>
+              <tr><th>推进剂</th><td>液氧甲烷（可在火星原位生产）</td></tr>
+              <tr><th>状态</th><td>高轨试验飞行，2027 年首飞</td></tr>
+            </table>
+          </div></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 技术知识 ===== -->
+<section class="sec" id="knowledge">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="en">Technology</div>
+      <h2>航天知识小课堂</h2>
+      <p>看懂航天，从这几个概念开始。TEARS 的每一项技术，都建立在它们之上。</p>
+    </div>
+    <div class="know-grid">
+      <article class="k-card reveal" tabindex="0" role="button" aria-expanded="false">
+        <span class="num-zh">01</span>
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <h3>可重复使用火箭</h3>
+        <p>传统火箭一次报废，成本极高。TEARS 让一级火箭垂直着陆回收、翻新再飞，单次发射成本骤降一个数量级——这是太空经济能够成立的前提。</p>
+        <div class="expand"><div class="detail">
+          回收并非简单"倒着飞"：火箭需要在超音速状态下翻转姿态，三次点火减速，最后用着陆腿在海上驳船或陆地平台接住自己。每一次着陆都是一次实时制导与发动机节流的极限挑战。
+        </div></div>
+      </article>
+      <article class="k-card reveal" tabindex="0" role="button" aria-expanded="false">
+        <span class="num-zh">02</span>
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="12" rx="9" ry="4"/><path d="M3 12v6c0 2.2 4 4 9 4s9-1.8 9-4v-6"/><path d="M3 12c0-2.2 4-4 9-4s9 1.8 9 4"/></svg></div>
+        <h3>轨道力学</h3>
+        <p>卫星不是"扔上去"就行，而是以约 7.9 km/s 的第一宇宙速度环绕地球。变轨、交会对接、再入窗口，全都由轨道力学精密计算决定，差 1 m/s 就可能是另一个故事。</p>
+        <div class="expand"><div class="detail">
+          不同轨道各有用途：近地轨道（LEO）适合空间站与遥感，中高轨道（GEO）是通信卫星的"停机位"。发射时机要掐准"发射窗口"，才能用最少的燃料完成入轨与交会。
+        </div></div>
+      </article>
+      <article class="k-card reveal" tabindex="0" role="button" aria-expanded="false">
+        <span class="num-zh">03</span>
+        <div class="icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 L13.6 8.4 L20 10 L13.6 11.6 L12 18 L10.4 11.6 L4 10 L10.4 8.4 Z"/><path d="M19 15 L19.8 18.2 L23 19 L19.8 19.8 L19 23 L18.2 19.8 L15 19 L18.2 18.2 Z"/></svg></div>
+        <h3>星际航行</h3>
+        <p>离开地球引力后，航天器沿霍曼转移轨道滑行，靠微弱推力微调。一次火星任务历时约 9 个月，全程无人补给，需要自主导航、辐射防护与生命保障系统的高度可靠。</p>
+        <div class="expand"><div class="detail">
+          星际任务没有"加油点"：燃料必须在出发时带够，途中靠引力弹弓借力。通信延迟长达数分钟到数十分钟，意味着飞船必须学会自己做决定——这也是深空自主导航成为核心技术的原因。
+        </div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 发射场 ===== -->
+<section class="sec" id="launch" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="en">Launch Sites</div>
+      <h2>发射工位</h2>
+      <p>两座沿海发射工位 + 一座内陆亚轨道试验场，全年可发射窗口超过 300 天。</p>
+    </div>
+    <div class="site-wrap reveal">
+      <img src="./assets/images/pad-aerial.jpg" alt="TEARS 沿海发射工位俯瞰" loading="lazy">
+      <div class="shade"></div>
+      <div class="site-info">
+        <h3>LC-39 · 沿海发射工位</h3>
+        <p>紧邻赤道方向海域，向东发射可借助地球自转获得额外速度增量。场区配备垂直总装厂房、移动发射平台与回收着陆区，支持 TEARS-9 与 TEARS Heavy 全流程作业。</p>
+        <div class="site-meta">
+          <span>纬度 <b>28.5° N</b></span>
+          <span>年发射能力 <b>60+ 次</b></span>
+          <span>回收着陆区 <b>3 个</b></span>
+        </div>
+        <button class="rocket-toggle site-toggle" type="button" aria-expanded="false" style="margin-top:20px">查看场区参数</button>
+        <div class="expand"><div class="detail">
+          <div class="dl"><span>发射台数量</span><b>2 座</b></div>
+          <div class="dl"><span>垂直总装厂房</span><b>120 m 级</b></div>
+          <div class="dl"><span>海上回收驳船</span><b>2 艘</b></div>
+          <div class="dl"><span>年均发射窗口</span><b>300+ 天</b></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 历程时间轴 ===== -->
+<section class="sec" id="history" style="background:var(--bg2);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="en">History</div>
+      <h2>里程碑</h2>
+      <p>从三人的车库到百人团队，TEARS 用十年走出了一条民营航天的路。</p>
+    </div>
+    <div class="tl reveal">
+      <div class="tl-item">
+        <div class="tl-time">2018</div><span class="tl-dot" aria-hidden="true"></span>
+        <div class="tl-body"><h4>公司成立</h4><p>三位创始人在车库中完成 TE-1 发动机概念设计，拿到第一笔种子投资。</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2022</div><span class="tl-dot" aria-hidden="true"></span>
+        <div class="tl-body"><h4>TEARS-1 首飞</h4><p>首枚试验火箭完成亚轨道飞行，验证垂直回收关键算法，回收着陆偏差 3 米。</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2025</div><span class="tl-dot" aria-hidden="true"></span>
+        <div class="tl-body"><h4>TEARS-9 入役</h4><p>主力火箭开始商业运营，当年完成 22 次轨道发射，成功率 100%。</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2028</div><span class="tl-dot" aria-hidden="true"></span>
+        <div class="tl-body"><h4>轨道站首舱</h4><p>商业轨道站首舱入轨，与舱段在轨对接，开启常驻微重力实验时代。</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2031</div><span class="tl-dot" aria-hidden="true"></span>
+        <div class="tl-body"><h4>火星先遣</h4><p>无人货船在火星乌托邦平原软着陆，验证原位资源利用与深空通信。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 倒计时 ===== -->
+<section class="sec" id="countdown" style="padding-top:0">
+  <div class="wrap">
+    <div class="count-wrap reveal">
+      <div class="lbl">Next Launch · 下次发射</div>
+      <div class="cd" id="cd">
+        <div class="unit"><div class="num" id="cd-d">--</div><div class="u">天</div></div>
+        <div class="unit"><div class="num" id="cd-h">--</div><div class="u">时</div></div>
+        <div class="unit"><div class="num" id="cd-m">--</div><div class="u">分</div></div>
+        <div class="unit"><div class="num" id="cd-s">--</div><div class="u">秒</div></div>
+      </div>
+      <p class="note">TEARS-9 · 轨道站补给任务 T-34 · 沿海发射工位</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 加入 ===== -->
+<section class="cta-block" id="join">
+  <div class="wrap reveal">
+    <h2>把名字写进深空</h2>
+    <p>工程师、科学家、飞行员、内容创作者——TEARS 需要每一双手。加入我们，一起把不可能发射出去。</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-solid" href="#join">查看岗位</a>
+      <a class="btn btn-ghost" href="#top">回到顶部</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 L14 10 L12 22 L10 10 Z"/><circle cx="12" cy="10" r="2.4" fill="currentColor" stroke="none"/></svg></span>TEARS</a>
+        <p>TEARS Space Exploration Co. — 让人类成为多行星物种。</p>
+      </div>
+      <div class="foot-col">
+        <h5>公司</h5>
+        <a href="#missions">任务</a><a href="#history">历程</a><a href="#join">加入我们</a>
+      </div>
+      <div class="foot-col">
+        <h5>产品</h5>
+        <a href="#rockets">火箭家族</a><a href="#launch">发射工位</a><a href="#countdown">发射日历</a>
+      </div>
+      <div class="foot-col">
+        <h5>联系</h5>
+        <a href="#top">contact@tears.space</a><a href="#top">媒体中心</a><a href="#top">投资者关系</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 TEARS Space Exploration Co.</span>
+      <span>本站内容为虚构演示，不构成任何投资建议，部分图片来自NASA、SpaceX</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/three.min.js"></script>
+<script>
+/* ===== 导航滚动状态 ===== */
+const nav=document.getElementById('nav');
+const onScroll=()=>{nav.classList.toggle('scrolled',window.scrollY>30)};
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* ===== 滚动揭示 ===== */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===== 数字统计 ===== */
+const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const countIO=new IntersectionObserver(es=>{es.forEach(e=>{
+  if(!e.isIntersecting)return; countIO.unobserve(e.target);
+  const el=e.target,target=+el.dataset.count,suf=el.querySelector('span')?.textContent||'';
+  if(reduceMotion){el.firstChild.textContent=target;return}
+  const t0=performance.now(),dur=1600;
+  const tick=now=>{
+    const p=Math.min((now-t0)/dur,1),v=Math.round(target*(1-Math.pow(1-p,3)));
+    el.firstChild.textContent=v;
+    if(p<1)requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+})},{threshold:.4});
+document.querySelectorAll('.stat .num').forEach(el=>countIO.observe(el));
+
+/* ===== 发射倒计时（演示目标时间：7天后的固定时刻） ===== */
+const launchTarget=(()=>{const d=new Date();d.setDate(d.getDate()+7);d.setHours(14,30,0,0);return d})();
+const pad=n=>String(n).padStart(2,'0');
+function tickCd(){
+  const diff=Math.max(0,launchTarget-Date.now());
+  const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
+  document.getElementById('cd-d').textContent=pad(d);
+  document.getElementById('cd-h').textContent=pad(h);
+  document.getElementById('cd-m').textContent=pad(m);
+  document.getElementById('cd-s').textContent=pad(s);
+}
+tickCd();setInterval(tickCd,1000);
+
+/* ===== 果冻效果 ===== */
+function jelly(el){
+  if(reduceMotion||!el)return;
+  el.classList.remove('jelly');
+  void el.offsetWidth;
+  el.classList.add('jelly');
+  el.addEventListener('animationend',()=>el.classList.remove('jelly'),{once:true});
+}
+
+/* ===== 火箭手风琴 ===== */
+document.querySelectorAll('.rocket-toggle:not(.site-toggle)').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    const card=btn.closest('.rocket-card');
+    const exp=card.querySelector('.spec-expand');
+    const isOpen=exp.classList.contains('open');
+    document.querySelectorAll('.spec-expand.open').forEach(x=>{
+      x.classList.remove('open');
+      const b=x.closest('.rocket-card').querySelector('.rocket-toggle');
+      if(b){b.textContent='查看参数';b.setAttribute('aria-expanded','false')}
+    });
+    if(!isOpen){exp.classList.add('open');btn.textContent='收起参数';btn.setAttribute('aria-expanded','true')}
+    jelly(btn);
+  });
+  const media=btn.closest('.rocket-card').querySelector('.rocket-media');
+  if(media)media.addEventListener('click',e=>{e.stopPropagation();btn.click()});
+});
+
+/* ===== 点击卡片展开介绍（任务 / 知识） ===== */
+function setExpand(root,panel,open){
+  if(open)panel.classList.add('open');else panel.classList.remove('open');
+  if(root&&root.hasAttribute('aria-expanded'))root.setAttribute('aria-expanded',open?'true':'false');
+}
+document.querySelectorAll('.m-card,.k-card').forEach(card=>{
+  const panel=card.querySelector('.expand');
+  if(!panel)return;
+  const btn=card.querySelector('.m-more');
+  const toggle=()=>{
+    const open=!panel.classList.contains('open');
+    setExpand(card,panel,open);
+    if(btn){btn.textContent=open?'收起详情':'点击展开任务详情';btn.setAttribute('aria-expanded',open?'true':'false')}
+    jelly(open?card:null);
+  };
+  card.addEventListener('click',toggle);
+  if(btn)btn.addEventListener('click',e=>{e.stopPropagation();toggle()});
+  card.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}
+  });
+});
+
+/* ===== 发射场参数展开 ===== */
+document.querySelectorAll('.site-toggle').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const panel=btn.nextElementSibling;
+    const open=!panel.classList.contains('open');
+    setExpand(btn,panel,open);
+    btn.textContent=open?'收起场区参数':'查看场区参数';
+    jelly(btn);
+  });
+});
+
+/* ===== Three.js 星空粒子背景 ===== */
+(function(){
+  const canvas=document.getElementById('stars');
+  if(!canvas)return;
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,1,0.1,1000);
+  camera.position.z=260;
+
+  /* 三层星星：近、中、远 */
+  const layer=(count,spread,size,opacity,color)=>{
+    const pos=new Float32Array(count*3);
+    for(let i=0;i<count;i++){
+      pos[i*3]=(Math.random()-0.5)*spread;
+      pos[i*3+1]=(Math.random()-0.5)*spread;
+      pos[i*3+2]=(Math.random()-0.5)*spread*0.7;
+    }
+    const geo=new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    const mat=new THREE.PointsMaterial({color,size,sizeAttenuation:true,transparent:true,opacity,depthWrite:false});
+    return new THREE.Points(geo,mat);
+  };
+  const starsNear=layer(260,420,1.1,0.95,0xe9eef6);
+  const starsMid=layer(700,640,0.75,0.7,0xb9c8ea);
+  const starsFar=layer(1400,900,0.5,0.45,0x7fb2ff);
+  scene.add(starsNear,starsMid,starsFar);
+
+  /* 偶尔的流星 */
+  const shooting={active:false,x:0,y:0,len:0,t:0,life:0};
+  function spawnShooting(){
+    shooting.active=true;shooting.x=(Math.random()-0.5)*700;shooting.y=(Math.random()-0.4)*400;
+    shooting.len=80+Math.random()*90;shooting.t=0;shooting.life=1.4+Math.random()*1.2;
+  }
+
+  function resize(){
+    const w=canvas.clientWidth,h=canvas.clientHeight;
+    renderer.setSize(w,h,false);
+    camera.aspect=w/h;camera.updateProjectionMatrix();
+  }
+  resize();window.addEventListener('resize',resize);
+
+  let rafId=null;
+  const renderFrame=()=>{
+    const t=performance.now()/1000;
+    starsNear.rotation.y=t*0.012;
+    starsMid.rotation.y=t*0.006;
+    starsFar.rotation.y=t*0.003;
+    renderer.render(scene,camera);
+  };
+
+  if(reduceMotion){
+    renderFrame(); /* 渲染一帧静态画面 */
+  }else{
+    let lastShoot=0;
+    function loop(){
+      const t=performance.now()/1000;
+      starsNear.rotation.y=t*0.012;
+      starsMid.rotation.y=t*0.006;
+      starsFar.rotation.y=t*0.003;
+      starsNear.material.opacity=0.9+Math.sin(t*1.4)*0.06;
+      if(!shooting.active&&t-lastShoot>5){spawnShooting();lastShoot=t}
+      if(shooting.active){
+        shooting.t+=0.016;
+        if(shooting.t>=shooting.life){shooting.active=false}
+      }
+      renderer.render(scene,camera);
+      rafId=requestAnimationFrame(loop);
+    }
+    rafId=requestAnimationFrame(loop);
+  }
+
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden&&rafId){cancelAnimationFrame(rafId);rafId=null}
+    else if(!document.hidden&&!reduceMotion&&!rafId){rafId=requestAnimationFrame(loop)}
+  });
+})();
+</script>
+</body>
+</html>
