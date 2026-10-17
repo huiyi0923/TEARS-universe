@@ -1942,6 +1942,7 @@ let lodLevel=2; /* 初始视角为中景 */
 document.addEventListener('visibilitychange',()=>{ /* 页面切后台停渲染 */
   if(!document.hidden)clock.getDelta();
 });
+toast('由于手机屏幕问题无法显示完整的功能，建议使用电脑访问')
 function animate(){
   requestAnimationFrame(animate);
   if(document.hidden)return;
@@ -1994,7 +1995,7 @@ animate();
    立即移除加载遮罩，避免卡在 LOADING 页 */
 setTimeout(()=>{document.getElementById('loading').classList.add('done')},250);
 
-alert('由于手机屏幕问题无法显示完整的功能，建议使用电脑访问');
+// alert('由于手机屏幕问题无法显示完整的功能，建议使用电脑访问');
 </script>
 </body>
 </html>
